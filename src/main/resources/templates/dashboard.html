@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!-- Font Awesome -->
+    <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>-->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="style/style.css" rel="stylesheet"/>
+    <style>
+        .theme {
+            /*background: #0e90d2;*/
+            background: #fff;
+        }
+
+        body {
+            background: #f8f8f8;
+        }
+
+        .card-header {
+            background: #fff;
+            /*border-bottom: none;*/
+            border-bottom: 1px solid #0000000f;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .nav-fill {
+            box-shadow: 0px -2px 6px 0px #00000029;
+
+        }
+    </style>
+</head>
+<body>
+<%include("/header.html"){}%>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    系统信息
+                </div>
+                <div class="card-body">
+                    CPU信息:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: ${cpu.used}%;" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100">${cpu.used}%
+                        </div>
+                    </div>
+
+                    <div>
+                        内存占用:
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width:${memory}%;" aria-valuenow="25"
+                                 aria-valuemin="0" aria-valuemax="100">${memory}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    快捷按钮
+                </div>
+                <div class="card-body">
+
+                    <div>
+                        <a href="/" class="btn btn-danger">终端Shell</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            系统信息
+        </div>
+        <div class="card-body">
+            <div class="p-4" style="max-height: 400px;overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td>文件</td>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <%
+                    for(file in files!){
+                    %>
+                    <tr>
+                        <td> ${file}</td>
+                    </tr>
+                    <%}%>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <p>上传:${net}M</p>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
