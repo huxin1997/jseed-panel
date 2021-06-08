@@ -42,7 +42,7 @@
 <%include("/header.html"){}%>
 <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
                     系统信息
@@ -66,13 +66,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
-
-        </div>
-        <div class="col-4">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    快捷按钮
+                    网速监控
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <span>上传:${net}M</span>
+                        <span>下载:${net}M</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    菜单面板
                 </div>
                 <div class="card-body">
 
@@ -87,7 +98,7 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            系统信息
+            文件管理
         </div>
         <div class="card-body">
             <div class="p-4" style="max-height: 400px;overflow-y: scroll">
@@ -110,7 +121,7 @@
                 </table>
 
             </div>
-            <p>上传:${net}M</p>
+
         </div>
     </div>
 

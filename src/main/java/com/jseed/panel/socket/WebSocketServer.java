@@ -1,9 +1,9 @@
 package com.jseed.panel.socket;
 
 import com.pty4j.PtyProcess;
-import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -168,7 +168,8 @@ public class WebSocketServer {
      * */
     public static void sendInfo(String message,@PathParam("userId") String userId) throws IOException {
         log.info("发送消息到:"+userId+"，报文:"+message);
-        if(StringUtils.isNotBlank(userId)&&webSocketMap.containsKey(userId)){
+        // !!
+        if(!StringUtils.isEmpty(userId)&&webSocketMap.containsKey(userId)){
             webSocketMap.get(userId).sendMessage(message);
         }else{
             log.error("用户"+userId+",不在线！");
