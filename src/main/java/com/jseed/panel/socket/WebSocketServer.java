@@ -1,5 +1,6 @@
 package com.jseed.panel.socket;
 
+import com.jseed.panel.prop.PtyProperties;
 import com.pty4j.PtyProcess;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,12 @@ public class WebSocketServer {
     private String userId="";
     private final PtyProcess pty;
 
-    public WebSocketServer() throws IOException {
+    public WebSocketServer(PtyProperties ptyProperties) throws IOException {
+
+        if (!ptyProperties.isEnable()){
+            this.pty = null;
+            return;
+        }
 
         // The command to run in a PTY...
         String[] cmd = { "/bin/bash", "-l"};
