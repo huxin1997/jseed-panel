@@ -40,7 +40,8 @@
         .fa-file {
             color: #9c7c7c;
         }
-        a{
+
+        a {
             text-decoration: none;
         }
 
@@ -58,7 +59,6 @@
                 <span>OS版本: [[${OSInfo.version}]]</span>
             </div>
         </div>
-        截图
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -69,7 +69,8 @@
                 <div class="card-body">
                     CPU信息:
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: [[${cpu.used}]]%;" aria-valuenow="25"
+                        <div class="progress-bar" role="progressbar" th:style="'width:'+${cpu.used} +'%;'"
+                             aria-valuenow="25"
                              aria-valuemin="0" aria-valuemax="100" th:text="${cpu.used} + '%'">
                         </div>
                     </div>
@@ -77,9 +78,9 @@
                     <div>
                         内存占用:
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width:[[${memory}]]%;"
+                            <div class="progress-bar" role="progressbar" th:style="'width:'+${memory}+'%;'"
                                  aria-valuenow="25"
-                                 aria-valuemin="0" aria-valuemax="100">[[${memory}]]
+                                 aria-valuemin="0" aria-valuemax="100">[[${memory}]]%
                             </div>
                         </div>
                     </div>
@@ -108,7 +109,7 @@
                 <div class="card-body">
 
                     <div>
-                        <a href="/" class="btn btn-danger">终端Shell</a>
+                        <a href="/terminal.html" class="btn btn-danger">终端Shell</a>
                     </div>
 
                 </div>
@@ -135,9 +136,10 @@
                         <td>
                             <i th:if="${file.isFile()}" class="fa fa-file "></i>
                             <i th:if="${file.isDirectory()}" class="fa fa-folder "></i>
-                            <a class="link-dark" href="#" >
+                            <a class="link-dark" href="#">
                                 <span th:text="${file.name}"></span>
-                                <span class="text-secondary" th:if="${file.isFile()}" th:text="${file.length() / (1024 * 1024)} + 'M'"></span>
+                                <span class="text-secondary" th:if="${file.isFile()}"
+                                      th:text="${file.length() / (1024 * 1024)} + 'M'"></span>
 
                             </a>
                         </td>
