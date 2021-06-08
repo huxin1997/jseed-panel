@@ -1,6 +1,8 @@
 package com.jseed.panel.web.controller;
 
 
+import cn.hutool.system.OsInfo;
+import cn.hutool.system.SystemUtil;
 import cn.hutool.system.oshi.CpuInfo;
 import cn.hutool.system.oshi.OshiUtil;
 import org.springframework.boot.system.ApplicationHome;
@@ -34,7 +36,9 @@ public class RouteController {
         File homeDir = applicationHome.getDir();
         model.addAttribute("files", homeDir.listFiles());
         model.addAttribute("net", networkIF.getBytesSent()/m);
-        return "dashboard.html";
+        OsInfo osInfo = SystemUtil.getOsInfo();
+        model.addAttribute("OSInfo", osInfo);
+        return "dashboard";
     }
 
 

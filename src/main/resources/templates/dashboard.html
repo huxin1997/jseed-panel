@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -8,6 +8,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <!-- MDB -->
+    <link href="style/font-awesome.min.css" rel="stylesheet"/>
     <link href="style/style.css" rel="stylesheet"/>
     <style>
         .theme {
@@ -32,15 +33,33 @@
             border-radius: 1rem;
         }
 
-        .nav-fill {
-            box-shadow: 0px -2px 6px 0px #00000029;
-
+        .fa-folder {
+            color: #79b8ff;
         }
+
+        .fa-file {
+            color: #9c7c7c;
+        }
+        a{
+            text-decoration: none;
+        }
+
     </style>
 </head>
 <body>
-<%include("/header.html"){}%>
+<!--<%include("/header.html"){}%>-->
 <div class="container">
+    <div class="my-5">
+        <div class="card">
+            <div class="card-header">系统信息</div>
+            <div class="card-body">
+                <span>OS名称: [[${OSInfo.name}]]</span>
+                <span>OS架构: [[${OSInfo.arch}]]</span>
+                <span>OS版本: [[${OSInfo.version}]]</span>
+            </div>
+        </div>
+        截图
+    </div>
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -50,16 +69,17 @@
                 <div class="card-body">
                     CPU信息:
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: ${cpu.used}%;" aria-valuenow="25"
-                             aria-valuemin="0" aria-valuemax="100">${cpu.used}%
+                        <div class="progress-bar" role="progressbar" style="width: [[${cpu.used}]]%;" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100" th:text="${cpu.used} + '%'">
                         </div>
                     </div>
 
                     <div>
                         内存占用:
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width:${memory}%;" aria-valuenow="25"
-                                 aria-valuemin="0" aria-valuemax="100">${memory}%
+                            <div class="progress-bar" role="progressbar" style="width:[[${memory}]]%;"
+                                 aria-valuenow="25"
+                                 aria-valuemin="0" aria-valuemax="100">[[${memory}]]
                             </div>
                         </div>
                     </div>
@@ -73,8 +93,8 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <span>上传:${net}M</span>
-                        <span>下载:${net}M</span>
+                        <span th:text="'上传:'+ ${net} + 'M'"></span>
+                        <span th:text="'下载:' + ${net} + 'M'"></span>
                     </div>
 
                 </div>
@@ -101,21 +121,27 @@
             文件管理
         </div>
         <div class="card-body">
-            <div class="p-4" style="max-height: 400px;overflow-y: scroll">
+            <div class="p-1">
+
+                <div class="mb-1">
+                    <button class="btn btn-sm btn-outline-secondary">返回</button>
+                    <button class="btn btn-sm btn-secondary">远程下载</button>
+                    <button class="btn btn-sm btn-success">上传文件</button>
+                </div>
+
                 <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <td>文件</td>
+                    <tbody style="max-height: 600px;overflow-y: scroll">
+                    <tr th:each="file:${files}">
+                        <td>
+                            <i th:if="${file.isFile()}" class="fa fa-file "></i>
+                            <i th:if="${file.isDirectory()}" class="fa fa-folder "></i>
+                            <a class="link-dark" href="#" >
+                                <span th:text="${file.name}"></span>
+                                <span class="text-secondary" th:if="${file.isFile()}" th:text="${file.length() / (1024 * 1024)} + 'M'"></span>
+
+                            </a>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody >
-                    <%
-                    for(file in files!){
-                    %>
-                    <tr>
-                        <td> ${file}</td>
-                    </tr>
-                    <%}%>
 
                     </tbody>
                 </table>

@@ -3,7 +3,7 @@
 
 ![img](https://img.shields.io/badge/%E7%89%88%E6%9C%AC-0.0.1-green)
 
-![img](doc/img.png)
+![img](doc/panel_review.png)
 
 
 

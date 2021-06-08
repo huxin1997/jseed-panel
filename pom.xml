@@ -76,11 +76,15 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.75</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.ibeetl/beetl -->
+<!--        <dependency>-->
+<!--            <groupId>com.ibeetl</groupId>-->
+<!--            <artifactId>beetl-framework-starter</artifactId>-->
+<!--            <version>1.2.28.RELEASE</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>com.ibeetl</groupId>
-            <artifactId>beetl-framework-starter</artifactId>
-            <version>1.2.28.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>2.4.5</version>
         </dependency>
 
     </dependencies>
