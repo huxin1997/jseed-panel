@@ -3,49 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <!-- Font Awesome -->
-    <!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>-->
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-    <!-- MDB -->
     <link href="style/font-awesome.min.css" rel="stylesheet"/>
+    <link href="style/bootstrap-5.0.1.css" rel="stylesheet"/>
     <link href="style/style.css" rel="stylesheet"/>
-    <style>
-        .theme {
-            /*background: #0e90d2;*/
-            background: #fff;
-        }
-
-        body {
-            background: #f8f8f8;
-        }
-
-        .card-header {
-            background: #fff;
-            /*border-bottom: none;*/
-            border-bottom: 1px solid #0000000f;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
-            overflow: hidden;
-            border-radius: 1rem;
-        }
-
-        .fa-folder {
-            color: #79b8ff;
-        }
-
-        .fa-file {
-            color: #9c7c7c;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-    </style>
 </head>
 <body>
 <!--<%include("/header.html"){}%>-->
@@ -97,7 +57,8 @@
                         <span th:text="'上传:'+ ${net} + 'M'"></span>
                         <span th:text="'下载:' + ${net} + 'M'"></span>
                     </div>
-
+                    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                    <div id="main" style="width: 100%;height:200px;"></div>
                 </div>
             </div>
         </div>
@@ -144,17 +105,250 @@
                             </a>
                         </td>
                     </tr>
-
                     </tbody>
                 </table>
-
             </div>
-
         </div>
     </div>
-
-
 </div>
+<script src="/js/echarts.min.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var base = +new Date(2016, 9, 3);
+    var oneDay = 24 * 3600 * 1000;
+    var valueBase = Math.random() * 100;
+    var valueBase2 = Math.random() * 50;
+    var data = [];
+    var data2 = [];
+
+    for (var i = 1; i < 10; i++) {
+        var now = new Date(base += oneDay);
+        var dayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
+
+        valueBase = Math.round((Math.random() - 0.5) * 20 + valueBase);
+        valueBase <= 0 && (valueBase = Math.random() * 300);
+        data.push([dayStr, valueBase]);
+
+        valueBase2 = Math.round((Math.random() - 0.5) * 20 + valueBase2);
+        valueBase2 <= 0 && (valueBase2 = Math.random() * 50);
+        data2.push([dayStr, valueBase2]);
+    }
+
+    let option = {
+        title: {
+            left: 'center',
+            // text: '网速监控',
+            // subtext: '"tootip" and "dataZoom" on mobile device',
+        },
+        legend: {
+            top: 'bottom',
+            data: ['意向']
+        },
+        tooltip: {
+            triggerOn: 'none',
+            position: function (pt) {
+                return [pt[0], 130];
+            }
+        },
+        // toolbox: {
+        //     left: 'center',
+        //     itemSize: 25,
+        //     top: 55,
+        //     feature: {
+        //         dataZoom: {
+        //             yAxisIndex: 'none'
+        //         },
+        //         restore: {}
+        //     }
+        // },
+        xAxis: {
+            type: 'category',
+            // boundaryGap: [0, 100],
+            axisPointer: {
+                value: '2016-10-7',
+                snap: true,
+                lineStyle: {
+                    color: '#7581BD',
+                    width: 2
+                },
+                label: {
+                    show: true,
+                    formatter: function (params) {
+                        return echarts.format.formatTime('yyyy-MM-dd', params.value);
+                    },
+                    backgroundColor: '#7581BD',
+
+                },
+                handle: {
+                    show: false,
+                    color: '#7581BD'
+                }
+            },
+            splitLine: {
+                show: false
+            },
+            min: 0,
+
+
+        },
+        yAxis: {
+            type: 'value',
+            axisTick: {
+                inside: true
+            },
+            splitLine: {
+                show: false
+            },
+            axisLabel: {
+                inside: true,
+                formatter: '{value}\n',
+            },
+            z: 10,
+            min: 0,
+
+        },
+        grid: {
+            top: 0,
+            left: 15,
+            right: 15,
+            height: 160
+        },
+        dataZoom: [{
+            // type: 'inside',
+            // // throttle: 50,
+            type: 'inside',
+            show: false,
+            realtime: false,
+            // start: 5,
+            // end: 100, // 初始显示index0-30的数据,可根据你的数据量设置
+            filterMode: 'none',
+        }],
+        series: [
+            {
+                name: '模拟数据',
+                type: 'line',
+                smooth: true,
+                symbol: 'none',
+                symbolSize: 10,
+                sampling: 'average',
+                itemStyle: {
+                    color: '#0770FF'
+                },
+                stack: 'a',
+                areaStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(58,77,233,0.8)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(58,77,233,0.3)'
+                    }])
+                },
+                data: data
+            },
+            // {
+            //     name: '模拟数据',
+            //     type: 'line',
+            //     smooth: true,
+            //     stack: 'a',
+            //     symbol: 'circle',
+            //     symbolSize: 5,
+            //     sampling: 'average',
+            //     itemStyle: {
+            //         color: '#F2597F'
+            //     },
+            //     areaStyle: {
+            //         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+            //             offset: 0,
+            //             color: 'rgba(213,72,120,0.8)'
+            //         }, {
+            //             offset: 1,
+            //             color: 'rgba(213,72,120,0.3)'
+            //         }])
+            //     },
+            //     data: data2
+            // }
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    var len = 10
+    function refreshData() {
+        // var now = new Date(base += oneDay);
+        // var dayStr = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-');
+        myChart.dispatchAction({
+            type: 'dataZoom',
+            startValue: 3,
+            // // 结束位置的数值
+            endValue: len
+        })
+    }
+
+    // window.setInterval(function () {
+    //     refreshData();
+    // }, 1000);
+
+    function pushData(bytes){
+        data.shift();
+        var nowDate = new Date;
+        data.push([nowDate.getMinutes() + ":" + nowDate.getSeconds(), parseInt(bytes)]);
+        myChart.setOption(option);
+    }
+
+
+    var socket;
+    function openSocket() {
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+            var socketUrl = "http://localhost:8080/socket/netInfo";
+            socketUrl = socketUrl.replace("https", "ws").replace("http", "ws");
+            console.log(socketUrl);
+            if (socket != null) {
+                socket.close();
+                socket = null;
+            }
+            socket = new WebSocket(socketUrl);
+            //打开事件
+            socket.onopen = function () {
+                console.log("websocket已打开");
+            };
+            //获得消息事件
+            socket.onmessage = function (msg) {
+                console.log(msg);
+                //发现消息进入    开始处理前端触发逻辑
+                pushData(msg.data)
+            };
+            //关闭事件
+            socket.onclose = function () {
+                console.log("websocket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function () {
+                console.log("websocket发生了错误");
+            }
+        }
+    }
+
+    function sendMessage() {
+        // if (typeof (WebSocket) == "undefined") {
+        //     console.log("您的浏览器不支持WebSocket");
+        // } else {
+        //     console.log("您的浏览器支持WebSocket");
+        //     console.log('{"toUserId":"' + $("#toUserId").val() + '","contentText":"' + $("#contentText").val() + '"}');
+        //     socket.send('{"toUserId":"' + $("#toUserId").val() + '","contentText":"' + $("#contentText").val() + '"}');
+        // }
+    }
+
+    openSocket();
+
+</script>
+
 
 </body>
 </html>

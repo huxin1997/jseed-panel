@@ -1,11 +1,9 @@
 # 这是什么？
 <div align="center">
 Jseed-Panel🌱 目前是一个轻量级的以Linux为主的服务器面板
-</div>
-
 ![img](https://img.shields.io/badge/%E7%89%88%E6%9C%AC-0.0.1-green)
 
-![img](doc/panel_review.png)
+![image-20210609215008142](https://tva1.sinaimg.cn/large/008i3skNgy1grccrodn7uj315n0u0jyu.jpg)
 
 
 

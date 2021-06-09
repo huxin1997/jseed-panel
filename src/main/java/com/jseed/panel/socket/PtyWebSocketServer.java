@@ -16,19 +16,19 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint("/socket/{userId}")
 @Component
 @Log4j2
-public class WebSocketServer {
+public class PtyWebSocketServer {
 
     /**静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。*/
     private static int onlineCount = 0;
     /**concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。*/
-    private static ConcurrentHashMap<String,WebSocketServer> webSocketMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, PtyWebSocketServer> webSocketMap = new ConcurrentHashMap<>();
     /**与某个客户端的连接会话，需要通过它来给客户端发送数据*/
     private Session session;
     /**接收userId*/
     private String userId="";
     private final PtyProcess pty;
 
-    public WebSocketServer(PtyProperties ptyProperties) throws IOException {
+    public PtyWebSocketServer(PtyProperties ptyProperties) throws IOException {
 
         if (!ptyProperties.isEnable()){
             this.pty = null;
@@ -64,7 +64,7 @@ public class WebSocketServer {
             Thread terminalReaderThread = new Thread(() -> {
                 try {
                     int c;
-                    while (WebSocketServer.this.pty.isRunning() && (c = reader.read()) != -1) {
+                    while (PtyWebSocketServer.this.pty.isRunning() && (c = reader.read()) != -1) {
 
                         if(c != 0){
                             sendMessage((Character.toString((char) c)));
@@ -187,51 +187,11 @@ public class WebSocketServer {
     }
 
     public static synchronized void addOnlineCount() {
-        WebSocketServer.onlineCount++;
+        PtyWebSocketServer.onlineCount++;
     }
 
     public static synchronized void subOnlineCount() {
-        WebSocketServer.onlineCount--;
+        PtyWebSocketServer.onlineCount--;
     }
 
-
-
-//        PtyProcess pty = new PtyProcessBuilder(cmd)
-//                .setConsole(true)
-//                .setInitialColumns(40)
-//                .setCygwin(true)
-//                .setEnvironment(map)
-//                .start();
-
-
-
-
-
-//        System.out.println(pty.getPid());
-//    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));bw.flush();
-//
-//    Thread terminalReaderThread = new Thread() {
-//        public void run() {
-//            try {
-//                int c;
-//                while (pty.isRunning() && (c = reader.read()) != -1) {
-//
-//                    if(c != 0){
-//                        print(Character.toString((char)c));
-//                    }
-//                }
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//
-//    };
-//        terminalReaderThread.start();
-//
-//
-//
-//    // wait until the PTY child process terminates...
-//    int result = pty.waitFor();
 }
