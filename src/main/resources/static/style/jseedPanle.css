@@ -1,0 +1,56 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+
+    background: url("/img/background.jpg") no-repeat center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.header {
+    height: 30px;
+    line-height: 30px;
+    background: #0000008c;
+    box-shadow: #02020229 0px 3px 3px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: .8em;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .8em;
+}
+
+div.window {
+    height: 500px;
+    width: 800px;
+    background: rgba(26, 25, 25, 0.56);
+    box-shadow: rgb(255 255 255 / 57%) 0px 0px 13px -5px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+div .window .window-head {
+    color: #FFF;
+    padding: .4em .5em;
+    font-size: .8em;
+    font-weight: bold;
+}
+
+div .window .window-body {
+    width: 100%;
+    height: 100%;
+}
+
+.fa-folder {
+    color: #79b8ff;
+}
+
+.fa-file {
+    color: #9c7c7c;
+}
+
+

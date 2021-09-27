@@ -1,6 +1,7 @@
 package com.jseed.panel.socket;
 
 import cn.hutool.system.oshi.OshiUtil;
+import com.jseed.panel.tool.ByteUnitConvert;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,6 +35,7 @@ public class NetInfoWebSocketServer {
 
     private final NetworkIF networkIF;
     private long beforeRecv;
+    private long beforeSent;
 
     public NetInfoWebSocketServer() {
         List<NetworkIF> networkIFs = OshiUtil.getNetworkIFs();
@@ -45,10 +47,19 @@ public class NetInfoWebSocketServer {
     private void scheduleTask() throws IOException {
         networkIF.updateAttributes();
         long bytesRecv = networkIF.getBytesRecv();
+        long bytesSent = networkIF.getBytesSent();
         long seceondRecvBytes = (bytesRecv - beforeRecv) / 1024L;
+        long seceondSentBytes = (bytesSent - beforeSent) / 1024L;
         beforeRecv = bytesRecv;
-        sendMessage(seceondRecvBytes);
-//        log.info("{}", seceondRecvBytes);
+        beforeSent = bytesSent;
+
+        String echo = String.format(
+                "⚡ ↑%s/s ↓%s/s",
+                ByteUnitConvert.convert(seceondSentBytes),
+                ByteUnitConvert.convert(seceondRecvBytes)
+        );
+
+        sendMessage(echo);
     }
 
     /**
@@ -58,7 +69,7 @@ public class NetInfoWebSocketServer {
     public void onOpen(Session session) throws IOException {
         this.session = session;
         webSocketMap.put("user", this);
-        sendMessage("hello");
+        sendMessage("loading");
 
     }
 
