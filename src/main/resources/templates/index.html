@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+
+            background: url("/img/background.jpg") no-repeat center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        div.header {
+            height: 30px;
+            line-height: 30px;
+            background: #0000008c;
+            box-shadow: #02020229 0px 3px 3px;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: .8em;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#draggable").draggable();
+        });
+    </script>
+</head>
+<body>
+<div class="header">
+    <p>🪐关于</p>
+    <p>⏱9月26日 星期日 下午4：00</p>
+    <p id="netInfo">⚡ ↑100k/s ↓2M/s</p>
+</div>
+<div class="container">
+
+    <div id="draggable" style="height: 500px;width: 800px; background: rgba(26,25,25,0.56)" class="ui-widget-content">
+        <p class="has-text-white p-1">终端</p>
+        <iframe id="browser" onhaschange="function x (){
+            document.getElementById('draggable').innerText = document.getElementById('browser').src
+        }" src="/terminal.html" style="width: 100%;height: 100%;"></iframe>
+    </div>
+
+
+    <ul>
+        <li>
+            <p><img src="https://desktop.sonspring.com/assets/images/icons/icon_32_computer.png" alt=""></p>
+            <p>system</p>
+        </li>
+        <li>
+            <p><img src="https://desktop.sonspring.com/assets/images/icons/icon_32_computer.png" alt=""></p>
+            <p>system</p>
+        </li>
+    </ul>
+</div>
+<!--<section class="section" style="height: 100%">-->
+
+<!--    <div class="container">-->
+
+<!--        <div class="columns">-->
+<!--            <div class="column">-->
+
+<!--                <div>-->
+<!--                    <a class="icon mx-4">-->
+<!--                        <p>-->
+<!--                        <img src="https://webix.com/demos/web-desktop/img/filemanager.png" alt="">-->
+<!--                        </p>-->
+<!--                        <p>document</p>-->
+<!--                    </a>-->
+<!--                    <a class="icon mx-4">-->
+<!--                        <img src="https://webix.com/demos/web-desktop/img/filemanager.png" alt="">-->
+<!--                    </a>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash;            <div class="notification is-danger">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <button class="delete"></button>&ndash;&gt;-->
+<!--                &lt;!&ndash;                Lorem ipsum dolor sit amet, consectetur adipiscing elit lorem ipsum dolor sit amet, consectetur adipiscing elit&ndash;&gt;-->
+<!--                &lt;!&ndash;            </div>&ndash;&gt;-->
+
+<!--                &lt;!&ndash;            <article class="message is-info">&ndash;&gt;-->
+<!--                &lt;!&ndash;                <div class="message-header">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    Info&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <button class="delete"></button>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <div class="message-body">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </article>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="column">-->
+
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--    &lt;!&ndash;                <form class="box">&ndash;&gt;-->
+<!--    &lt;!&ndash;                    <div class="field">&ndash;&gt;-->
+<!--    &lt;!&ndash;                        <label class="label">登录账号</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;                        <div class="control">&ndash;&gt;-->
+<!--    &lt;!&ndash;                            <input class="input" type="email" placeholder="admin">&ndash;&gt;-->
+<!--    &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;                    <div class="field">&ndash;&gt;-->
+<!--    &lt;!&ndash;                        <label class="label">密码</label>&ndash;&gt;-->
+<!--    &lt;!&ndash;                        <div class="control">&ndash;&gt;-->
+<!--    &lt;!&ndash;                            <input class="input" type="password" placeholder="********">&ndash;&gt;-->
+<!--    &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--    &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;                    <button class="button is-primary">启动</button>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </form>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--&lt;!&ndash;                <progress class="progress is-small is-primary" max="100">15%</progress>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div class="buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="button is-info">Info</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="button is-success">Success</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="button is-warning">Warning</button>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button class="button is-danger">Danger</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--    </div>-->
+<!--</section>-->
+
+
+<div style="box-shadow: #0000002e 1px 1px 7px 0;background: #0000004d!important;position: absolute;bottom: 40px;width: 40%; left: 30%;right: -30%"
+     class=" card is-flex is-justify-content-center p-3">
+
+    <a class="icon mx-4">
+        <img src="https://desktop.sonspring.com/assets/images/icons/icon_32_computer.png" alt="">
+    </a>
+    <a class="icon mx-4">
+        <img src="https://webix.com/demos/web-desktop/img/filemanager.png" alt="">
+    </a>
+    <!--          <footer class="card-footer">-->
+    <!--              <a href="#" class="card-footer-item">Save</a>-->
+    <!--              <a href="#" class="card-footer-item">Edit</a>-->
+    <!--              <a href="#" class="card-footer-item">Delete</a>-->
+    <!--          </footer>-->
+</div>
+
+<script>
+    var socket;
+
+    function openSocket() {
+        if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+        } else {
+            console.log("您的浏览器支持WebSocket");
+            //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+            var socketUrl = "http://localhost:8080/socket/netInfo";
+            socketUrl = socketUrl.replace("https", "ws").replace("http", "ws");
+            console.log(socketUrl);
+            if (socket != null) {
+                socket.close();
+                socket = null;
+            }
+            socket = new WebSocket(socketUrl);
+            //打开事件
+            socket.onopen = function () {
+                console.log("websocket已打开");
+            };
+            //获得消息事件
+            socket.onmessage = function (msg) {
+                console.log(msg);
+                //发现消息进入    开始处理前端触发逻辑
+
+                document.getElementById('netInfo').innerText = '⚡ ↑100k/s ↓' + msg.data + '/s'
+            };
+            //关闭事件
+            socket.onclose = function () {
+                console.log("websocket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function () {
+                console.log("websocket发生了错误");
+            }
+        }
+    }
+
+    openSocket();
+</script>
+</body>
+</html>

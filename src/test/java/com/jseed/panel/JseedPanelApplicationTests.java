@@ -4,7 +4,6 @@ import cn.hutool.system.SystemUtil;
 import cn.hutool.system.oshi.OshiUtil;
 import com.pty4j.PtyProcess;
 import org.junit.jupiter.api.Test;
-import oshi.SystemInfo;
 import oshi.hardware.NetworkIF;
 
 import java.io.*;
@@ -16,6 +15,9 @@ class JseedPanelApplicationTests {
     @Test
     void test(){
         List<NetworkIF> networkIFs = OshiUtil.getNetworkIFs();
+        for (NetworkIF networkIF : networkIFs) {
+            System.out.println(networkIF);
+        }
         System.out.println(OshiUtil.getCpuInfo());
 
     }

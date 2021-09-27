@@ -1,8 +1,8 @@
 package com.jseed.panel.socket;
 
-import com.jseed.panel.prop.PtyProperties;
 import com.pty4j.PtyProcess;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint("/socket/{userId}")
 @Component
 @Log4j2
+@Order(10)
 public class PtyWebSocketServer {
 
     /**静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。*/
@@ -28,17 +29,12 @@ public class PtyWebSocketServer {
     private String userId="";
     private final PtyProcess pty;
 
-    public PtyWebSocketServer(PtyProperties ptyProperties) throws IOException {
-
-        if (!ptyProperties.isEnable()){
-            this.pty = null;
-            return;
-        }
+    public PtyWebSocketServer() throws IOException {
 
         // The command to run in a PTY...
-        String[] cmd = { "/bin/bash", "-l"};
+        String[] cmd = {"/bin/bash", "-l"};
         // The initial environment to pass to the PTY child process...
-        String[] env = { "TERM=xterm" };
+        String[] env = {"TERM=xterm"};
         HashMap<String, String> map = new HashMap<>();
         map.put("TERM", "xterm");
 
@@ -99,7 +95,7 @@ public class PtyWebSocketServer {
         log.info("用户连接:"+userId+",当前在线人数为:" + getOnlineCount());
 
         try {
-            sendMessage("连接成功");
+            sendMessage(" \033[32m连接成功！\033[0m \r\b");
         } catch (IOException e) {
             log.error("用户:"+userId+",网络异常!!!!!!");
         }

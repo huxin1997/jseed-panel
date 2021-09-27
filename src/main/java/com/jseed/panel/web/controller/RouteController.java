@@ -20,7 +20,11 @@ public class RouteController {
 
     @GetMapping("/")
     public String toDashboard(Model model) {
+        setModel(model);
+        return "index";
+    }
 
+    private void setModel(Model model) {
         List<NetworkIF> networkIFs = OshiUtil.getNetworkIFs();
         NetworkIF networkIF = networkIFs.get(2);
 //        model.addAttribute("info", networkIF.getSpeed());
@@ -31,15 +35,18 @@ public class RouteController {
         long available = memory.getAvailable();
         model.addAttribute("cpu", cpuInfo);
         float m = 1024F * 1024;
-        model.addAttribute("memory", (memory.getTotal() - memory.getAvailable()) / m / (memory.getTotal() / m) *100);
+        model.addAttribute("memory", (memory.getTotal() - memory.getAvailable()) / m / (memory.getTotal() / m) * 100);
         ApplicationHome applicationHome = new ApplicationHome();
         File homeDir = applicationHome.getDir();
         model.addAttribute("files", homeDir.listFiles());
-        model.addAttribute("net", networkIF.getBytesSent()/m);
+        model.addAttribute("net", networkIF.getBytesSent() / m);
         OsInfo osInfo = SystemUtil.getOsInfo();
         model.addAttribute("OSInfo", osInfo);
-        return "dashboard";
     }
 
-
+    @GetMapping("/old")
+    public String toDashboard2(Model model) {
+        setModel(model);
+        return "dashboard";
+    }
 }

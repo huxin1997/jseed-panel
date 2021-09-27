@@ -37,18 +37,18 @@ public class NetInfoWebSocketServer {
 
     public NetInfoWebSocketServer() {
         List<NetworkIF> networkIFs = OshiUtil.getNetworkIFs();
-        networkIF = networkIFs.get(2);
+        networkIF = networkIFs.get(4);
         beforeRecv = networkIF.getBytesRecv();
     }
 
-    @Scheduled(cron = "*/1 * * * * ?")
+    @Scheduled(cron = "*/2 * * * * ?")
     private void scheduleTask() throws IOException {
         networkIF.updateAttributes();
         long bytesRecv = networkIF.getBytesRecv();
         long seceondRecvBytes = (bytesRecv - beforeRecv) / 1024L;
         beforeRecv = bytesRecv;
         sendMessage(seceondRecvBytes);
-        log.info("{}", seceondRecvBytes);
+//        log.info("{}", seceondRecvBytes);
     }
 
     /**
